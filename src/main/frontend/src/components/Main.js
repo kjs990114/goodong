@@ -3,7 +3,7 @@ import React from 'react';
 const Main = () => {
     return(
         <div>
-            Main입니다.
+            <img src="/img/main.jpg" width={1600} alt={"main"}/>
         </div>
     );
 };
