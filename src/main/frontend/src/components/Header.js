@@ -29,6 +29,7 @@ const Header = () => {
 
     const logout = () => {
         localStorage.removeItem('jwtToken');
+        localStorage.removeItem('username');
         setIsLogin(false);
         setId("");
     }
@@ -50,7 +51,9 @@ const Header = () => {
                     <Link to={"/repository"}>
                         <button className={"button"} id={"my-repository-button"}>My Repository</button>
                     </Link>
-                    <button className={"button"} id={"logout-button"} onClick={logout}>Logout</button>
+                    <Link to={"/"}>
+                        <button className={"button"} id={"logout-button"} onClick={logout}>Logout</button>
+                    </Link>
                 </span>
             )}
             <Modal show ={registerModal} onHide = {hideRegisterModal}>
