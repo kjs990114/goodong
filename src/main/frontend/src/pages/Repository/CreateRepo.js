@@ -24,7 +24,7 @@ const CreateRepo = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8000/savepost', postDTO, {
+            const response = await axios.post('http://localhost:8000/repository/savepost', postDTO, {
                 headers: {
                     Authorization: localStorage.getItem("jwtToken")
                 }

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -15,7 +17,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public void post(PostDTO post) throws Exception {
+    public void savePost(PostDTO post) throws Exception {
 
         if(postRepository.existsByTitle(post.getTitle())){
             throw new Exception("Title already Exists!");
@@ -28,5 +30,10 @@ public class PostService {
         postEntity.setUploadDate(post.getUploadDate());
 
         postRepository.save(postEntity);
+    }
+
+    @Transactional
+    public List<PostEntity> getPostByUserId(String username) {
+        return postRepository.findByUserId(username);
     }
 }
