@@ -5,6 +5,7 @@ import RegisterForm from './RegisterForm';
 import LoginForm from "./LoginForm";
 import '../styles/header.css';
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
     const [loginModal, setLoginModal] = useState(false);
@@ -22,8 +23,17 @@ const Header = () => {
         const storedToken = localStorage.getItem('jwtToken');
         const username = localStorage.getItem('username');
         if (storedToken) {
-            setIsLogin(true);
-            setId(username);
+            axios.get("http://localhost:8000/auth/expired",
+                {headers: {Authorization : storedToken}}).then(response => {
+                    const isTokenExpired = response.data;
+
+                    if(isTokenExpired) {
+                        logout();
+                    }else {
+                        setIsLogin(true);
+                        setId(username);
+                    }
+            })
         }
     }, []);
 

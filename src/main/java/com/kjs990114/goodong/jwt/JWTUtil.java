@@ -1,5 +1,6 @@
 package com.kjs990114.goodong.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -30,8 +31,13 @@ public class JWTUtil {
     }
 
     public Boolean isExpired(String token) {
-
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+        Boolean isExpired = false;
+        try {
+            isExpired = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+        }catch (ExpiredJwtException e) {
+            return true;
+        }
+        return isExpired;
     }
 
     public String createJwt(String username, String role, Long expiredMs) {

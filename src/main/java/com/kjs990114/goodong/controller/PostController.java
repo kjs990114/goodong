@@ -33,7 +33,6 @@ public class PostController {
     public ResponseEntity<List<PostEntity>> showPost(@RequestHeader("Authorization") String jwtToken) {
         String token = jwtToken.split(" ")[1];
         String userId = jwtUtil.getUsername(token);
-        System.out.println("userId = " + userId);
         List<PostEntity> post = postService.getPostByUserId(userId);
         return ResponseEntity.ok(post);
     }

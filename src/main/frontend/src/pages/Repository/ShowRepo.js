@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import axios from 'axios';
 
 const ShowRepo = () => {
     const [repoData, setRepoData] = useState(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -17,7 +17,8 @@ const ShowRepo = () => {
                     setRepoData(response.data);
                 }
             } catch (error) {
-                console.error('Error fetching repository data:', error);
+                alert("로그인이 필요합니다.");
+                navigate('/');
             }
         };
         fetchData();
