@@ -30,4 +30,7 @@ public class PostEntity {
 
     @Column(name = "user_id")
     private String userId;
+
+    @Column(name ="file_url")
+    private String fileUrl;
 }

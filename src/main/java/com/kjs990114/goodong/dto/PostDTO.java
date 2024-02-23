@@ -17,4 +17,5 @@ public class PostDTO {
     private String content;
     private String userId;
     private Timestamp uploadDate;
+    private String fileUrl;
 }

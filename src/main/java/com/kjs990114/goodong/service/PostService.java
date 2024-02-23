@@ -28,6 +28,7 @@ public class PostService {
         postEntity.setContent(post.getContent());
         postEntity.setUserId(post.getUserId());
         postEntity.setUploadDate(post.getUploadDate());
+        postEntity.setFileUrl(post.getFileUrl());
 
         postRepository.save(postEntity);
     }
@@ -36,4 +37,7 @@ public class PostService {
     public List<PostEntity> getPostByUserId(String username) {
         return postRepository.findByUserId(username);
     }
+
+    @Transactional
+    public PostEntity getPostByPostId(Long postId) { return postRepository.findByPostId(postId); }
 }

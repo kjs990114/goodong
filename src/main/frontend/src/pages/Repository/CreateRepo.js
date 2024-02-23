@@ -4,6 +4,7 @@ import axios from 'axios';
 const CreateRepo = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [gltfFile, setGltfFile] = useState(null); // 추가: glTF 파일 상태
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -13,20 +14,25 @@ const CreateRepo = () => {
         setContent(event.target.value);
     };
 
+    const handleFileChange = (event) => {
+        setGltfFile(event.target.files[0]);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const postDTO = {
-            title: title,
-            content: content,
-            userId: localStorage.getItem("username"),
-            uploadDate: new Date().toISOString()
-        };
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('userId', localStorage.getItem("username"));
+        formData.append('uploadDate', new Date().toISOString());
+        formData.append('file', gltfFile); // 추가: glTF 파일 추가
 
         try {
-            const response = await axios.post('http://localhost:8000/repository/savepost', postDTO, {
+            const response = await axios.post('http://localhost:8000/repository/savepost', formData, {
                 headers: {
-                    Authorization: localStorage.getItem("jwtToken")
+                    Authorization: localStorage.getItem("jwtToken"),
+                    'Content-Type': 'multipart/form-data'
                 }
             });
             if (response.data === "success") {
@@ -36,8 +42,9 @@ const CreateRepo = () => {
                 alert("이미 존재하는 타이틀 입니다.")
             }
         } catch (error) {
-            alert('로그인 세션 만료! 다시 로그인하세요.');
-            window.location.href = "http://localhost:3000/";
+            console.error(error);
+            // alert('로그인 세션 만료! 다시 로그인하세요.');
+            // window.location.href = "http://localhost:3000/";
         }
     };
 
@@ -49,6 +56,8 @@ const CreateRepo = () => {
                 <input type="text" id="title" name="title" value={title} onChange={handleTitleChange} /><br />
                 <label htmlFor="content">작품 설명:</label><br />
                 <textarea id="content" name="content" value={content} onChange={handleContentChange} rows="4" cols="50" /><br />
+                <label htmlFor="file">glTF 파일:</label><br />
+                <input type="file" id="file" name="file" onChange={handleFileChange} /><br />
                 <input type="submit" value="등록" />
             </form>
         </div>

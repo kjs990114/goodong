@@ -65,7 +65,8 @@ public class WebSecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/register" , "/auth/expired").permitAll()
+
+                        .requestMatchers( "/models/**","/register" , "/auth/expired" ,"/repository/showpost*", "/repository/showpostByPostId").permitAll()
                         .anyRequest().authenticated());
         //세션 설정
         http
@@ -82,6 +83,7 @@ public class WebSecurityConfig {
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
 
         return http.build();
     }

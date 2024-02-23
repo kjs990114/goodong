@@ -17,7 +17,7 @@ const Header = () => {
     const hideRegisterModal = () => {setRegisterModal(false);};
 
     const [isLogin, setIsLogin] = useState(false);
-    const [id, setId] = useState("");
+    const [userID, setUserID] = useState("");
 
     useEffect(() => {
         const storedToken = localStorage.getItem('jwtToken');
@@ -31,7 +31,7 @@ const Header = () => {
                         logout();
                     }else {
                         setIsLogin(true);
-                        setId(username);
+                        setUserID(username);
                     }
             })
         }
@@ -41,12 +41,12 @@ const Header = () => {
         localStorage.removeItem('jwtToken');
         localStorage.removeItem('username');
         setIsLogin(false);
-        setId("");
+        setUserID("");
     }
 
     return(
         <div id={"header-frame"}>
-            <Link to={"/"}>
+            <Link to={'/'}>
                 <button className={"button"} id={"home-button"}>Home</button>
             </Link>
             {!isLogin && (
@@ -55,10 +55,10 @@ const Header = () => {
                     <button className={"button"} id={"create-account-button"} onClick={showRegisterModal}>Create account</button>
                 </span>
             )}
-            {isLogin && id !== "" &&(
+            {isLogin && userID !== "" &&(
                 <span id={"user-span"}>
-                    <span className={"user-info"} id={"user-info-text"}>{id} 님 반갑습니다!</span>
-                    <Link to={"/repository"}>
+                    <span className={"user-info"} id={"user-info-text"}>{userID} 님 반갑습니다!</span>
+                    <Link to={`/${userID}/repository`}>
                         <button className={"button"} id={"my-repository-button"}>My Repository</button>
                     </Link>
                     <Link to={"/"}>
@@ -74,7 +74,7 @@ const Header = () => {
 
             <Modal show ={loginModal} onHide = {hideLoginModal}>
                 <Modal.Body>
-                    <LoginForm setLoginModal={setLoginModal} setIsLogin = {setIsLogin} setId = {setId}/>
+                    <LoginForm setLoginModal={setLoginModal} setIsLogin = {setIsLogin} setId = {setUserID}/>
                 </Modal.Body>
             </Modal>
         </div>
