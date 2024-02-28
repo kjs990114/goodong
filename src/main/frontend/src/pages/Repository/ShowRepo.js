@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from 'axios';
+import '../../styles/ShowRepo.css'
 
 const ShowRepo = () => {
     const [repoData, setRepoData] = useState(null);
     const navigate = useNavigate();
-    const {userID} = useParams();
+    const { userID } = useParams();
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/repository/showpost', {
-                    // headers: {
-                    //     Authorization: localStorage.getItem("jwtToken")
-                    // },
-                    params : {
-                        username : userID
+                    params: {
+                        username: userID
                     }
                 });
-                if(response.data.length != 0) {
-                    console.log(response.data);
+                if (response.data.length !== 0) {
                     setRepoData(response.data);
                 }
             } catch (error) {
@@ -31,15 +29,23 @@ const ShowRepo = () => {
     }, []);
 
     return (
-        <div>
+        <div className="container">
             {repoData ? (
                 <div>
-                    <h2>Repository Data:</h2>
+                    <div className={"repo-header"}>
+                        <span className={"repo-username"}>kjs990114</span>
+                        <Link to="/repository/create">
+                            <button className="btn-create">New</button>
+                        </Link>
+                    </div>
+
+
+                    <hr/>
                     <ul>
                         {repoData.map((item, index) => (
-                            <Link to={`/${item.userId}/repository/${item.postId}`}>
-                                <div>
-                                    <a>Title: {item.title}, Content: {item.content}, Upload Date: {item.uploadDate}, User ID: {item.userId}</a>
+                            <Link className={"repo-link"} to={`/${item.userId}/repository/${item.postId}`} key={index}>
+                                <div className="repo-item">
+                                    <span>{item.title}</span>
                                 </div>
                             </Link>
                         ))}
@@ -50,9 +56,7 @@ const ShowRepo = () => {
                     User Repository is currently empty!<br />
                 </div>
             )}
-            <Link to={"/repository/create"}>
-                <button>Create Repository</button>
-            </Link>
+            <hr/>
         </div>
     );
 };

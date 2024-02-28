@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "../../styles/CreateRepo.css"
 
 const CreateRepo = () => {
     const [title, setTitle] = useState('');
@@ -36,9 +37,11 @@ const CreateRepo = () => {
                 }
             });
             if (response.data === "success") {
+                console.log(response);
                 alert("저장소 등록 성공!");
-                window.location.href = "http://localhost:3000/repository";
+                window.location.href = "http://localhost:3000/" + localStorage.getItem('username') + "/repository";
             } else {
+                console.log(response);
                 alert("이미 존재하는 타이틀 입니다.")
             }
         } catch (error) {
@@ -49,16 +52,25 @@ const CreateRepo = () => {
     };
 
     return (
-        <div>
-            <h1>작품 등록</h1>
+        <div className="container">
+            <h3>Create a new repository</h3>
+            <hr/>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="title">작품 제목:</label><br />
-                <input type="text" id="title" name="title" value={title} onChange={handleTitleChange} /><br />
-                <label htmlFor="content">작품 설명:</label><br />
-                <textarea id="content" name="content" value={content} onChange={handleContentChange} rows="4" cols="50" /><br />
-                <label htmlFor="file">glTF 파일:</label><br />
-                <input type="file" id="file" name="file" onChange={handleFileChange} /><br />
-                <input type="submit" value="등록" />
+                <div className="form-group">
+                    <h6>Repository name *</h6>
+                    <input type="text" id="title" name="title" value={title} onChange={handleTitleChange} style={{fontSize : 18}}/>
+                </div>
+                <div className="form-group">
+                    <h6>Description *</h6>
+                    <textarea id="content" name="content" value={content} onChange={handleContentChange} rows="4" cols="50" />
+                </div>
+                <hr/>
+                <div className="form-group">
+                    <label htmlFor="file" id="file-label">.glTF(필수)와 텍스쳐 파일(선택)가 포함된 zip파일 *</label>
+                    <input type="file" accept={".zip"} id="file" name="file" onChange={handleFileChange} />
+                </div>
+                <hr/>
+                <input type="submit" className="btn-submit" value="등록" />
             </form>
         </div>
     );
