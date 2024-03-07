@@ -2,7 +2,6 @@ package com.kjs990114.goodong.controller;
 
 import com.kjs990114.goodong.dto.PostDTO;
 import com.kjs990114.goodong.entity.PostEntity;
-import com.kjs990114.goodong.jwt.JWTUtil;
 import com.kjs990114.goodong.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +40,11 @@ public class PostController {
 
     {
         try {
+            System.out.println("title = " + title);
+            System.out.println("content = " + content);
+            System.out.println("userId = " + userId);
+            System.out.println("uploadDate = " + uploadDate);
+            System.out.println("file = " + file);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
             Date parsedDate = dateFormat.parse(uploadDate);
@@ -62,8 +66,6 @@ public class PostController {
             PostDTO postDTO = new PostDTO(title, content, userId, timestamp ,fileUrl);
 
             postService.savePost(postDTO);
-
-            System.out.println("file = " + file);
             return ResponseEntity.ok("success");
         } catch (Exception e) {
             e.printStackTrace();

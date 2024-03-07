@@ -12,8 +12,6 @@ import '../../styles/Canvas.css';
 const Model = ({url}) => {
     const [yPos, setYPos] = useState(0);
     const [xPos, setXPos] = useState(0);
-    const [min2, setMin] = useState([Infinity, Infinity, Infinity]);
-    const [max2, setMax] = useState([-Infinity, -Infinity, -Infinity]);
 
     const gltf = useLoader(GLTFLoader, url);
     const [scaleFactor, setScaleFactor] = useState(1);

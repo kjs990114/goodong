@@ -66,8 +66,8 @@ const CreateRepo = () => {
                 </div>
                 <hr/>
                 <div className="form-group">
-                    <label htmlFor="file" id="file-label">.glTF(필수)와 텍스쳐 파일(선택)가 포함된 zip파일 *</label>
-                    <input type="file" accept={".zip"} id="file" name="file" onChange={handleFileChange} />
+                    <label htmlFor="file" id="file-label">.glTF(필수)와 텍스쳐 파일(선택)가 포함된 zip파일 혹은 .glb 파일*</label>
+                    <input type="file"  id="file" name="file" onChange={handleFileChange} />
                 </div>
                 <hr/>
                 <input type="submit" className="btn-submit" value="등록" />
