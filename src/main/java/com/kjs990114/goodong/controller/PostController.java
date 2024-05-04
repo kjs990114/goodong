@@ -4,6 +4,7 @@ import com.kjs990114.goodong.dto.PostDTO;
 import com.kjs990114.goodong.entity.PostEntity;
 import com.kjs990114.goodong.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,8 @@ import java.util.zip.ZipInputStream;
 public class PostController {
 
     private final PostService postService;
+    @Value("${model.location}")
+    String location;
 
     @PostMapping("/savepost")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -51,7 +54,8 @@ public class PostController {
             Timestamp timestamp = new Timestamp(parsedDate.getTime());
             String uuid = UUID.randomUUID().toString();
             String fileName = file.getOriginalFilename();
-            String fileDir = "/Users/keemjoonsung/IdeaProjects/goodong/src/main/resources/static/models/" + uuid;
+            String fileDir = location + uuid;
+            //나중에 클라우드로 할시 DIR 바꿔야함.........
 
             Path dir = Paths.get(fileDir);
             Files.createDirectory(dir);
@@ -61,7 +65,6 @@ public class PostController {
             if(fileName.endsWith(".zip")){
                 fileName = extractZipFile(newFile, dir.toFile());
             }
-
             String fileUrl = "http://localhost:8000/models/"+ uuid+ "/" +fileName;
             PostDTO postDTO = new PostDTO(title, content, userId, timestamp ,fileUrl);
 
