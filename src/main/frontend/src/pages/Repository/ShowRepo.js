@@ -30,17 +30,15 @@ const ShowRepo = () => {
 
     return (
         <div className="container">
+            <div className={"repo-header"}>
+                <span className={"repo-username"}>{userID}</span>
+                <Link to="/repository/create">
+                    <button className="btn-create">New</button>
+                </Link>
+            </div>
+            <hr/>
             {repoData ? (
                 <div>
-                    <div className={"repo-header"}>
-                        <span className={"repo-username"}>kjs990114</span>
-                        <Link to="/repository/create">
-                            <button className="btn-create">New</button>
-                        </Link>
-                    </div>
-
-
-                    <hr/>
                     <ul>
                         {repoData.map((item, index) => (
                             <Link className={"repo-link"} to={`/${item.userId}/repository/${item.postId}`} key={index}>
@@ -54,9 +52,9 @@ const ShowRepo = () => {
             ) : (
                 <div>
                     User Repository is currently empty!<br />
+
                 </div>
             )}
-            <hr/>
         </div>
     );
 };
