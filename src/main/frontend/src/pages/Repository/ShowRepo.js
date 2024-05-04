@@ -38,8 +38,6 @@ const ShowRepo = () => {
                             <button className="btn-create">New</button>
                         </Link>
                     </div>
-
-
                     <hr/>
                     <ul>
                         {repoData.map((item, index) => (
