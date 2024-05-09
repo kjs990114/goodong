@@ -5,6 +5,9 @@ import com.kjs990114.goodong.entity.PostEntity;
 import com.kjs990114.goodong.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,7 +58,7 @@ public class PostController {
             Date parsedDate = dateFormat.parse(uploadDate);
             Timestamp timestamp = new Timestamp(parsedDate.getTime());
             String uuid = UUID.randomUUID().toString();
-            String fileName = file.getOriginalFilename();
+            String fileName = "model.glb";
             String fileDir = location + uuid;
             //나중에 클라우드로 할시 DIR 바꿔야함.........
 
@@ -63,9 +68,9 @@ public class PostController {
             file.transferTo(newFile);
 
             if(fileName.endsWith(".zip")){
-                fileName = extractZipFile(newFile, dir.toFile());
+                extractZipFile(newFile, dir.toFile());
             }
-            String fileUrl = "http://localhost:8000/models/"+ uuid+ "/" +fileName;
+            String fileUrl = "http://localhost:8000/models/"+ uuid+ "/" + fileName ;
             PostDTO postDTO = new PostDTO(title, content, userId, timestamp ,fileUrl);
 
             postService.savePost(postDTO);
@@ -91,8 +96,21 @@ public class PostController {
         Long id = Long.parseLong(postId);
         System.out.println("id = " + id);
         return ResponseEntity.ok(postService.getPostByPostId(id));
+
     }
 
+    @GetMapping("/download/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Resource> downloadModelFile(@PathVariable("id") String id)  {
+        try {
+            Resource resource = new UrlResource("file:" + location + id + "/model.glb");
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=model.glb")
+                    .body(resource);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public String extractZipFile(File zipFile, File destDir) throws IOException {
         byte[] buffer = new byte[1024];
