@@ -6,13 +6,13 @@ import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import {Environment, OrbitControls} from '@react-three/drei';
 import * as THREE from 'three';
+import {CopyToClipboard} from "react-copy-to-clipboard/src";
 import '../../styles/Canvas.css';
 
 
 const Model = ({url}) => {
     const [yPos, setYPos] = useState(0);
     const [xPos, setXPos] = useState(0);
-
     const gltf = useLoader(GLTFLoader, url);
     const [scaleFactor, setScaleFactor] = useState(1);
 
@@ -45,9 +45,17 @@ const Model = ({url}) => {
     );
 };
 
+const getModelCode = ({urlString}) => {
+    console.log("url string : " + urlString)
+    return urlString.match(/\/models\/([^\/]+)\//)[1];
+}
+
+
+
 
 const ShowModel = () => {
     const [postData, setPostData] = useState(null);
+    const [modelCode , setModelCode] = useState("");
     const params = useParams();
     const postId = params['postID'];
     const userId = localStorage.getItem('username');
@@ -65,6 +73,8 @@ const ShowModel = () => {
                 });
                 console.log(response.data);
                 setPostData(response.data);
+                console.log("파일" + response.data.fileUrl);
+                setModelCode( response.data.fileUrl.match(/\/models\/([^\/]+)\//)[1]);
             } catch (error) {
                 console.error(error);
             }
@@ -72,14 +82,20 @@ const ShowModel = () => {
 
         fetchData();
     }, [params]); // Only run useEffect when `params` changes
-
     return (
         <div id={"model-canvas"} >
         {postData ? (
 
             <>
-            <div id={"title"}>{postData.title} </div>
+                <div id = {"title-container"}>
+                    <span id={"title"}>{postData.title} </span>
+                </div>
                 <hr/>
+                <div id = {"code-container"}>
+                    <CopyToClipboard text={modelCode} onCopy={() => alert("Copy to Clipboard")}>
+                        <button className="btn-create" id = {"btn-code"}> {"<"} {">"} Code</button>
+                    </CopyToClipboard>
+                </div>
                 <div id={"canvas-container"}>
                     <Canvas>
                         <OrbitControls/>
@@ -96,7 +112,6 @@ const ShowModel = () => {
                         {postData.content}
                     </div>
                 </div>
-
             </>
             ) : (
                 <p>Loading...</p>
