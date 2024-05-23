@@ -9,7 +9,10 @@
 # 기술 스택
 
 frontend - React.js , Axios
+
 backend - Spring boot , JPA
+
 db - MySQL
+
 security - Spring Security, JWT
 
