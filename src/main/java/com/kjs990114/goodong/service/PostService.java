@@ -19,9 +19,9 @@ public class PostService {
     @Transactional
     public void savePost(PostDTO post) throws Exception {
 
-        if(postRepository.existsByTitle(post.getTitle())){
-            throw new Exception("Title already Exists!");
-        }
+//        if(postRepository.existsByTitle(post.getTitle())){
+//            throw new Exception("Title already Exists!");
+//        }
         PostEntity postEntity = new PostEntity();
 
         postEntity.setTitle(post.getTitle());
