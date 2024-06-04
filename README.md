@@ -31,7 +31,7 @@
 
 ## Members
 
-2018312075, Software Department, Kim joon sung (Back-end)
+2018312075, Software Department, Kim joon sung (Back-end)<br>
 2018311813, Software Department, Kim min jae (Front-end)
 
 
