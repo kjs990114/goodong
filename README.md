@@ -1,14 +1,42 @@
-# 2024.01.22 ~ 진행중
+## goodong : Graduation Project - SKKU 2024
 
-# 프로젝트 소개
+- 3D model repository web - combine with Blender Add-on (https://github.com/kjs990114/goodong-blender-addon)<br>
+- AI-based Export & Import 3D model<br>
+- AI-based Tagging & search
+## Project Subject
 
-3D model을 저장하고 렌더링할수있는 3D 모델 디자이너의 포트폴리오 웹 사이트
+-
 
-블렌더 소프트웨어와 연동하여 원격으로 Export, Import 가능
+## Project Outline
+
+-
+
+## Preview
+
+-
+
+
+## Project Progress
+
+-
+
+
+## Structure
+-
+
+
+## Budget
+-
+
+
+## Members
+
+2018312075, Software Department, Kim joon sung (Back-end)
+2018311813, Software Department, Kim min jae (Front-end)
 
 
 
-# 기술 스택
+## Technical Stacks
 
 frontend - React.js , Axios
 
