@@ -37,7 +37,7 @@ images will be uploaded soon
 
 2024.05.09 - User can download uploaded 3D model<br>
 
-2024.05.26  - description and title automation , User just export to web using blender, OpenAI fills in title and description automatically.<br>
+2024.05.26  - User can just export 3D model to website via blender, and OpenAI fills title and description automatically.<br>
 
 <br>
 
