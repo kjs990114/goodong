@@ -7,7 +7,7 @@ AI-based Tagging & search
   
   <br>
 
-## Project Reason
+## Project Objective
 
 GitHub plays a significant role as a popular platform for software developers to
 store, manage, share code, or showcase their portfolios. However, in the field of
