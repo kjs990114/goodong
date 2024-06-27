@@ -41,7 +41,7 @@ images will be uploaded soon
 
 2024.06.25 - Separate repository of Backend source code and Frontend source code
 
-2024.06.27 - 	Change AI Service interally (OpenAI API -> Gemini Vertex AI API)
+2024.06.27 - 	Change AI API (OpenAI API -> Gemini Vertex AI API)
 
 <br>
 
