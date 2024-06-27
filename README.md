@@ -39,6 +39,8 @@ images will be uploaded soon
 
 2024.05.26  - User can just export 3D model to website via blender, and OpenAI fills title and description automatically.<br>
 
+2024.06.27 - 	Change AI Service interally (OpenAI API -> Gemini Vertex AI API)
+
 <br>
 
 ## Structure
