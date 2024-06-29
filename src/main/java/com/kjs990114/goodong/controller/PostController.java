@@ -1,5 +1,6 @@
 package com.kjs990114.goodong.controller;
 
+import com.kjs990114.goodong.document.PostDocument;
 import com.kjs990114.goodong.dto.PostDTO;
 import com.kjs990114.goodong.entity.PostEntity;
 import com.kjs990114.goodong.service.PostService;
@@ -16,7 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,6 +89,13 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+
+    @GetMapping("/searchPosts")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<PostDocument>> searchPostAll( @RequestParam("keyword") String keyword) {
+        List<PostDocument> post = postService.searchPosts(keyword);
+        return ResponseEntity.ok(post);
+    }
 
     @GetMapping("/showpostByPostId")
     @CrossOrigin(origins = "http://localhost:3000")
