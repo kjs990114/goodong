@@ -2,7 +2,7 @@
 
 3D model repository web - combine with Blender Add-on (https://github.com/kjs990114/goodong-blender-addon)<br>
 AI-based Export & Import 3D model<br>
-AI-based Tagging & search
+AI-based posting
 
   
   <br>
