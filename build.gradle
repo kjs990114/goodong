@@ -38,7 +38,6 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
     implementation platform("org.springframework.ai:spring-ai-bom:0.8.1-SNAPSHOT")
-    implementation 'org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter'
 	implementation("com.googlecode.json-simple:json-simple:1.1.1")
 
 
@@ -52,50 +51,54 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-def webappDir = "$projectDir/src/main/frontend"
+// def webappDir = "$projectDir/src/main/frontend"
+
+bootJar {
+    mainClass = 'com.kjs990114.goodong.GoodongApplication'
+}
 
 sourceSets {
     main {
         resources {
-            srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
+            srcDirs = ["$projectDir/src/main/resources"]
         }
     }
 }
 
-processResources {
-    dependsOn "copyWebApp"
-}
+// processResources {
+//     dependsOn "copyWebApp"
+// }
 
 
-task copyWebApp(type: Copy) {
-    dependsOn "buildReact"
-    from "$webappDir/build"
-    into "$projectDir/src/main/resources/static"
-}
+// task copyWebApp(type: Copy) {
+//     dependsOn "buildReact"
+//     from "$webappDir/build"
+//     into "$projectDir/src/main/resources/static"
+// }
 
 
-task buildReact(type: Exec) {
-    dependsOn "installReact"
-    workingDir "$webappDir"
-    inputs.dir "$webappDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "run-script", "build"
-    } else {
-        commandLine "npm", "run-script", "build"
-    }
-}
+// task buildReact(type: Exec) {
+//     dependsOn "installReact"
+//     workingDir "$webappDir"
+//     inputs.dir "$webappDir"
+//     group = BasePlugin.BUILD_GROUP
+//     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//         commandLine "npm.cmd", "run-script", "build"
+//     } else {
+//         commandLine "npm", "run-script", "build"
+//     }
+// }
 
-task installReact(type: Exec) {
-    workingDir "$webappDir"
-    inputs.dir "$webappDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-        commandLine "npm.cmd", "audit", "fix"
-        commandLine 'npm.cmd', 'install'
-    } else {
-        commandLine "npm", "audit", "fix"
-        commandLine 'npm', 'install'
-    }
-}
+// task installReact(type: Exec) {
+//     workingDir "$webappDir"
+//     inputs.dir "$webappDir"
+//     group = BasePlugin.BUILD_GROUP
+//     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//         commandLine "npm.cmd", "audit", "fix"
+//         commandLine 'npm.cmd', 'install'
+//     } else {
+//         commandLine "npm", "audit", "fix"
+//         commandLine 'npm', 'install'
+//     }
+// }
 
